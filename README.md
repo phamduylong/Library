@@ -30,5 +30,5 @@ However, this project has its limits. One major limit is all the data is saved i
 In order to use the project, please download all the files from project (.cpp and .h files if you're using any other IDE but Microsoft's Visual Studio) or clone it from GitHub. 
 If you are using JetBrains CLion, please move the file <em>db.txt</em> into <em>cmake-build-debug</em> folder of the project to prevent bugs.
 <br> The program has internal instructions itself, with a menu of functions and error messages if an error occured during the run. 
-Any question please contact me (social media links and email address above).<br>
+<br>
 I am open to any kind of feedbacks/comments/contributions. Hit me up with social media links above or through email preferably 😌
