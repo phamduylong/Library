@@ -35,6 +35,7 @@ static void Library::addBook() {
     std::cin >> book;
     vec.push_back(book);
     std::cout << "Book added successfully!" << std::endl;
+    write_to_file();
 }
 
 
@@ -50,6 +51,7 @@ static void Library::deleteBook() {
     else {
         vec.erase(it);
     }
+    write_to_file();
 }
 
 
@@ -97,9 +99,12 @@ static void Library::borrowBook() {
         (*it).changeAvailability();
         std::cout << "You are now borrowing " + (*it).getTitle() + " by " + (*it).getAuthor() + ". Enjoy the book :)" << std::endl;
     }
+
+    write_to_file();
 }
 
 
+//function to return book after borrowing
 static void Library::returnBook() {
     Book book;
     std::cin >> book;
@@ -116,15 +121,21 @@ static void Library::returnBook() {
         (*it).changeAvailability();
         std::cout << (*it).getTitle() + "has been returned!" << std::endl;
     }
+
+    write_to_file();
 }
 
 
+
+//init function
 void Library::init() {
     vec.clear();
     Library::read_from_file();
 }
 
 
+
+//function to read from a file. Can read from custom file (will be implemented later)
 static void Library::read_from_file(std::string filename) {
     std::vector<std::string> class_mem;
     std::ifstream ifile(filename);
@@ -145,6 +156,7 @@ static void Library::read_from_file(std::string filename) {
 }
 
 
+//function to write to a file. Can write to custom file (will be implemented later)
 static void Library::write_to_file(std::string filename) {
     std::ofstream ofile(filename);
     if (!ofile.is_open()) {
