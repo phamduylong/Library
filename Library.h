@@ -13,7 +13,11 @@ namespace Library {
 
     static void addBook();
 
+    static void deleteBook();
+
     static void searchByCategory();
+
+    static void borrowBook();
 
     int takeInput();
 
