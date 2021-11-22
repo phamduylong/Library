@@ -10,11 +10,12 @@ class Book {
 	bool available;
 	static int tmp_id;
 public:
-	Book(std::string title_ = "", std::string author_ = "", std::string category = "");
+	Book(std::string title_ = "", std::string author_ = "", std::string category_ = "", int avai = 1);
 	void changeAvailability();
 	int getId();
 	bool getAvailability();
 	std::string getTitle();
+	std::string getAuthor();
 	std::string getCategory();
 	friend std::ostream& operator << (std::ostream& os, const Book& book);
 	friend std::istream& operator >> (std::istream& is, Book& book);

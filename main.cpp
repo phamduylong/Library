@@ -1,9 +1,11 @@
+#include "Library.h"
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include "Library.h"
+#include <fstream>
 
 int main() {
+	Library::init();
     Library::run();
 	return 0;
 }

@@ -4,7 +4,7 @@
 
 int Book::tmp_id = 0;
 
-Book::Book (std::string title_, std::string author_, std::string category_) : title(title_), id(++tmp_id), author(author_), category(category_), available(true) {}
+Book::Book(std::string title_, std::string author_, std::string category_, int avai) : title(title_), id(++tmp_id), author(author_), category(category_), available(avai) {}
 
 
 void Book::changeAvailability() {
@@ -17,6 +17,10 @@ int Book::getId() {
 
 std::string Book::getTitle() {
 	return title;
+}
+
+std::string Book::getAuthor() {
+	return author;
 }
 
 std::string Book::getCategory() {
