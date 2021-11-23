@@ -5,8 +5,8 @@
 #include <fstream>
 
 int main() {
-	Library::init();
-    Library::run();
-	return 0;
+    Library::init(); //initiates program	
+    Library::run(); //run program
+    return 0;
 }
 
