@@ -49,8 +49,9 @@ static void Library::deleteBook() {
         return;
     }
     else {
+        std::cout << (*it).getTitle() + " by " + (*it).getAuthor() + "has been deleted!" << std::endl;
         db.erase(it);
-        std::cout << (*it).getTitle() + "by" + (*it).getAuthor() + "has been deleted!" << std::endl;
+        
     }
     write_to_file();
 }
