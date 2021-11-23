@@ -10,18 +10,18 @@ using namespace Library::Container;
 
 //function print all books from library 
 static void Library::printAllBooks() {
-    if (vec.size() == 0) {
+    if (db.size() == 0) {
         std::cout << "There are no existing book. Please start by adding new books!" << std::endl;
         return;
     }
     else {
         int order = 1;
-        std::sort(vec.begin(), vec.end(),
+        std::sort(db.begin(), db.end(),
             [](Book b1, Book b2) {
-                return b1.getCategory() < b2.getCategory();
+                return b1.getAvailability() > b2.getAvailability();
             }
         );
-        for (auto& i : vec) {
+        for (auto& i : db) {
             std::cout << order++ << ". " << i << std::endl;
         }
     }
@@ -33,7 +33,7 @@ static void Library::printAllBooks() {
 static void Library::addBook() {
     Book book;
     std::cin >> book;
-    vec.push_back(book);
+    db.push_back(book);
     std::cout << "Book added successfully!" << std::endl;
     write_to_file();
 }
@@ -43,13 +43,14 @@ static void Library::addBook() {
 static void Library::deleteBook() {
     Book book;
     std::cin >> book;
-    auto it = std::find(vec.begin(), vec.end(), book);
-    if (it == vec.end()) {
+    auto it = std::find(db.begin(), db.end(), book);
+    if (it == db.end()) {
         std::cout << "Cannot find the book! Please try again!" << std::endl;
         return;
     }
     else {
-        vec.erase(it);
+        db.erase(it);
+        std::cout << (*it).getTitle() + "by" + (*it).getAuthor() + "has been deleted!" << std::endl;
     }
     write_to_file();
 }
@@ -58,7 +59,7 @@ static void Library::deleteBook() {
 //function to search books by category
 static void Library::searchByCategory() {
     int order = 1;
-    std::sort(vec.begin(), vec.end(),
+    std::sort(db.begin(), db.end(),
         [](Book b1, Book b2) {
             return b1.getCategory() < b2.getCategory();
         }
@@ -71,7 +72,7 @@ static void Library::searchByCategory() {
     }
     std::string copy_query = query;
     copy_query[0] = std::toupper(query[0]);
-    for (auto& i : vec) {
+    for (auto& i : db) {
         if (i.getCategory().find(query) != std::string::npos || i.getCategory() == copy_query) {
             std::cout << order++ << ". " << i << std::endl;
         }
@@ -86,9 +87,9 @@ static void Library::searchByCategory() {
 static void Library::borrowBook() {
     Book book;
     std::cin >> book;
-    std::vector<Book>::iterator it = std::find(vec.begin(), vec.end(), book);
+    std::vector<Book>::iterator it = std::find(db.begin(), db.end(), book);
 
-    if (it == vec.end()) {
+    if (it == db.end()) {
         std::cout << "Cannot find book! Please try again!" << std::endl;
         return;
     }
@@ -108,9 +109,9 @@ static void Library::borrowBook() {
 static void Library::returnBook() {
     Book book;
     std::cin >> book;
-    std::vector<Book>::iterator it = std::find(vec.begin(), vec.end(), book);
+    std::vector<Book>::iterator it = std::find(db.begin(), db.end(), book);
 
-    if (it == vec.end()) {
+    if (it == db.end()) {
         std::cout << "Cannot find book! Please try again!" << std::endl;
         return;
     }
@@ -119,17 +120,25 @@ static void Library::returnBook() {
     }
     else {
         (*it).changeAvailability();
-        std::cout << (*it).getTitle() + "has been returned!" << std::endl;
+        std::cout << (*it).getTitle() + " has been returned!" << std::endl;
     }
 
     write_to_file();
+}
+
+void Library::writeToCustomFile()
+{
+    std::string filename;
+    std::cout << "What file do you want to write to?" << std::endl;
+    std::getline(std::cin, filename);
+    write_to_file(filename);
 }
 
 
 
 //init function
 void Library::init() {
-    vec.clear();
+    db.clear();
     Library::read_from_file();
 }
 
@@ -148,7 +157,7 @@ static void Library::read_from_file(std::string filename) {
         class_mem.push_back(tmp);
         if (class_mem.size() == 4) {
             Book book(class_mem[0], class_mem[1], class_mem[2], std::stoi(class_mem[3]));
-            vec.push_back(book);
+            db.push_back(book);
             class_mem.clear();
         }
     }
@@ -163,8 +172,15 @@ static void Library::write_to_file(std::string filename) {
         std::cout << "An error occured while opening file for writing. Please try again!" << std::endl;
         return;
     }
-    for (auto i : vec) {
-        ofile << i.getTitle() + "," + i.getAuthor() + "," + i.getCategory() + "," + std::to_string(i.getAvailability()) + ",";
+    if (filename == "db.txt") {
+        for (auto i : db) {
+            ofile << i.getTitle() + "," + i.getAuthor() + "," + i.getCategory() + "," + std::to_string(i.getAvailability()) + ",";
+        }
+    }
+    else {
+        for (auto i : db) {
+            ofile << i << std::endl;
+        }
     }
 
 }
@@ -174,8 +190,8 @@ static void Library::write_to_file(std::string filename) {
 int Library::takeInput() {
     int input(0);
     std::cout << "MENU:\n1: Print all books\n2: Add a new book to library\n";
-    std::cout << "3: Delete a book\n4: Search for books of a specific category\n5: Borrow a book\n";
-    std::cout << "6: Exit\nNOTE : ENTERING -1 WILL CAUSE THE PROGRAM TO STOP AUTOMATICALLY" << std::endl;
+    std::cout << "3: Delete a book\n4: Search for books of a specific category\n5: Borrow a book\n6: Return a book\n";
+    std::cout << "7: Write to custom file\n8: Exit\n\nNOTE : ENTERING -1 WILL CAUSE THE PROGRAM TO STOP AUTOMATICALLY" << std::endl;
     std::cin >> input;
     if (!std::cin) {
         return -1;
@@ -210,6 +226,12 @@ void Library::run() {
             Library::borrowBook();
             break;
         case 6:
+            Library::returnBook();
+            break;
+        case 7:
+            Library::writeToCustomFile();
+            break;
+        case 8:
             Library::write_to_file();
             userExit = true;
             break;

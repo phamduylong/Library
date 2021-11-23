@@ -4,15 +4,12 @@
 #define BOOK_H
 class Book {
 	std::string title;
-	int id;
 	std::string author;
 	std::string category;
 	bool available;
-	static int tmp_id;
 public:
 	Book(std::string title_ = "", std::string author_ = "", std::string category_ = "", int avai = 1);
 	void changeAvailability();
-	int getId();
 	bool getAvailability();
 	std::string getTitle();
 	std::string getAuthor();

@@ -2,18 +2,14 @@
 #include <iostream>
 #include <string>
 
-int Book::tmp_id = 0;
 
-Book::Book(std::string title_, std::string author_, std::string category_, int avai) : title(title_), id(++tmp_id), author(author_), category(category_), available(avai) {}
+Book::Book(std::string title_, std::string author_, std::string category_, int avai) : title(title_), author(author_), category(category_), available(avai) {}
 
 
 void Book::changeAvailability() {
 	available = !available;
 }
 
-int Book::getId() {
-	return id;
-}
 
 std::string Book::getTitle() {
 	return title;
@@ -32,7 +28,8 @@ bool Book::getAvailability() {
 }
 
 std::ostream& operator << (std::ostream& os, const Book& book) {
-	os << book.title + " - " + book.author + "\nCategory: " + book.category << std::endl;
+	std::string avai = (book.available) ? "(Available)" : "(Unavailable)";
+	os << book.title + " - " + book.author + " " + avai + "\nCategory: " + book.category << std::endl;
 	return os;
 }
 

@@ -8,7 +8,7 @@
 //namespace singleton design
 namespace Library {
     namespace Container {
-        static std::vector<Book> vec;
+        static std::vector<Book> db;
     }
     static void printAllBooks();
 
@@ -21,6 +21,8 @@ namespace Library {
     static void borrowBook();
 
     static void returnBook();
+
+    static void writeToCustomFile();
 
     void init();
 
