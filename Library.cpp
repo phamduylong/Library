@@ -127,14 +127,23 @@ static void Library::returnBook() {
     write_to_file();
 }
 
+
+//write to custom file
 void Library::writeToCustomFile()
 {
     std::string filename;
     std::cout << "What file do you want to write to?" << std::endl;
     std::getline(std::cin, filename);
-    write_to_file(filename);
-}
+    std::ofstream ofile(filename);
+    if (!ofile.is_open()) {
+        std::cout << "An error occured while opening file for writing. Please try again!" << std::endl;
+        return;
+    }
 
+    for (auto i : db) {
+        ofile << i << std::endl;
+    }
+}
 
 
 //init function
@@ -233,6 +242,7 @@ void Library::run() {
             Library::writeToCustomFile();
             break;
         case 8:
+            //save changes to file
             Library::write_to_file();
             userExit = true;
             break;
