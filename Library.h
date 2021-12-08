@@ -10,25 +10,25 @@ namespace Library {
     namespace Container {
         static std::vector<Book> db;
     }
-    static void printAllBooks();
+    void printAllBooks();
 
-    static void addBook();
+    void addBook();
 
-    static void deleteBook();
+    void deleteBook();
 
-    static void searchByCategory();
+    void searchByCategory();
 
-    static void borrowBook();
+    void borrowBook();
 
-    static void returnBook();
+    void returnBook();
 
-    static void writeToCustomFile();
+    void writeToCustomFile();
 
     void init();
 
-    static void read_from_file(std::string filename = "db.txt");
+    void read_from_file(std::string filename = "db.txt");
 
-    static void write_to_file(std::string filename = "db.txt");
+    void write_to_file(std::string filename = "db.txt");
 
     int takeInput();
 
