@@ -35,7 +35,7 @@ static void Library::addBook() {
     std::cin >> book;
     db.push_back(book);
     std::cout << "Book added successfully!" << std::endl;
-    write_to_file();
+    writeToFile();
 }
 
 
@@ -53,7 +53,7 @@ static void Library::deleteBook() {
         db.erase(it);
         
     }
-    write_to_file();
+    writeToFile();
 }
 
 
@@ -102,7 +102,7 @@ static void Library::borrowBook() {
         std::cout << "You are now borrowing " + (*it).getTitle() + " by " + (*it).getAuthor() + ". Enjoy the book :)" << std::endl;
     }
 
-    write_to_file();
+    writeToFile();
 }
 
 
@@ -124,7 +124,7 @@ static void Library::returnBook() {
         std::cout << (*it).getTitle() + " has been returned!" << std::endl;
     }
 
-    write_to_file();
+    writeToFile();
 }
 
 
@@ -149,13 +149,13 @@ void Library::writeToCustomFile()
 //init function
 void Library::init() {
     db.clear();
-    Library::read_from_file();
+    Library::readFromFile();
 }
 
 
 
 //function to read from a file. Can read from custom file (will be implemented later)
-static void Library::read_from_file(std::string filename) {
+static void Library::readFromFile(std::string filename) {
     std::vector<std::string> class_mem;
     std::ifstream ifile(filename);
     if (!ifile.is_open()) {
@@ -176,7 +176,7 @@ static void Library::read_from_file(std::string filename) {
 
 
 //function to write to a file. Can write to custom file (will be implemented later)
-static void Library::write_to_file(std::string filename) {
+static void Library::writeToFile(std::string filename) {
     std::ofstream ofile(filename);
     if (!ofile.is_open()) {
         std::cout << "An error occured while opening file for writing. Please try again!" << std::endl;
@@ -197,7 +197,7 @@ static void Library::write_to_file(std::string filename) {
 
 
 //function to take user's input
-int Library::take_input() {
+int Library::takeInput() {
     int input(0);
     std::cout << "MENU:\n1: Print all books\n2: Add a new book to library\n";
     std::cout << "3: Delete a book\n4: Search for books of a specific category\n5: Borrow a book\n6: Return a book\n";
@@ -215,7 +215,7 @@ int Library::take_input() {
 void Library::run() {
     bool userExit = false;
     while (!userExit) {
-        switch (Library::take_input()) {
+        switch (Library::takeInput()) {
         case -1:
             std::cout << "Program exited due to invalid input." << std::endl;
             userExit = true;
@@ -243,7 +243,7 @@ void Library::run() {
             break;
         case 8:
             //save changes to file
-            Library::write_to_file();
+            Library::writeToFile();
             userExit = true;
             break;
         default:

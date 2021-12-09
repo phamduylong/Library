@@ -26,11 +26,11 @@ namespace Library {
 
     void init();
 
-    void read_from_file(std::string filename = "db.txt");
+    void readFromFile(std::string filename = "db.txt");
 
-    void write_to_file(std::string filename = "db.txt");
+    void writeToFile(std::string filename = "db.txt");
 
-    int take_input();
+    int takeInput();
 
     void run();
 }
