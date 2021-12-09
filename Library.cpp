@@ -197,7 +197,7 @@ static void Library::write_to_file(std::string filename) {
 
 
 //function to take user's input
-int Library::takeInput() {
+int Library::take_input() {
     int input(0);
     std::cout << "MENU:\n1: Print all books\n2: Add a new book to library\n";
     std::cout << "3: Delete a book\n4: Search for books of a specific category\n5: Borrow a book\n6: Return a book\n";
@@ -215,7 +215,7 @@ int Library::takeInput() {
 void Library::run() {
     bool userExit = false;
     while (!userExit) {
-        switch (Library::takeInput()) {
+        switch (Library::take_input()) {
         case -1:
             std::cout << "Program exited due to invalid input." << std::endl;
             userExit = true;

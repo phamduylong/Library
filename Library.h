@@ -30,7 +30,7 @@ namespace Library {
 
     void write_to_file(std::string filename = "db.txt");
 
-    int takeInput();
+    int take_input();
 
     void run();
 }
